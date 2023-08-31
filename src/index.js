@@ -1,15 +1,32 @@
+
+
+
+class Project {
+    constructor(name) {
+        this.name = name;
+        this.id = new Date().getTime();
+    }
+
+}
+
+
 class Task {
-    constructor(text) {
+    constructor(title,text) {
+      this.title = title
       this.text = text;
+      this.projectId = projectId;
       this.id = new Date().getTime(); // unique ID
     }
   }
 
 
-  let tasks = [
-    { text: 'Esta eh a sua primeira tarefa', id: 1693435297401 },
-    { text: 'Esta eh a sua segunda tarefa', id: 1693435298401 }
+const projects = [new Project('Home'), new Project('Work')];
+
+let tasks = [
+    { title: 'Lavar o carro', text:'O carro esta bem sujo ne', projectId: projects[0].id, id: 1693435297401 },
+    { title: 'Aprender react', text:'Precisamos disso para evoluir na vida', projectId: projects[0].id, id: 1693435298401 }
   ];
+
 
 
 // Function to render tasks
@@ -17,7 +34,6 @@ const renderTasks = (taskArray) => {
     // Get the task list element
     const taskListElement = document.getElementById('taskList');
   
-    // Clear existing tasks from the list
     taskListElement.innerHTML = '';
   
     // Loop through each task in the array
@@ -26,14 +42,14 @@ const renderTasks = (taskArray) => {
       const listItemElement = document.createElement('li');
   
     
-      listItemElement.textContent = task.text;
+      listItemElement.textContent = task.title;
   
       // Append the list item to the task list
       taskListElement.appendChild(listItemElement);
     });
   };
 
-  
+
   // Render tasks when the page loads
 document.addEventListener('DOMContentLoaded', () => {
     renderTasks(tasks);
@@ -50,13 +66,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const taskText = taskInput.value;
 
         if (taskText) {
-            // Create a new Task object
+            
             const newTask = new Task(taskText);
       
-            // Add the new Task object to the tasks array
             tasks.push(newTask);
       
-            // Re-render the task list
             renderTasks(tasks);
 
             taskInput.value = '';
