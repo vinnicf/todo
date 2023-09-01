@@ -27,12 +27,12 @@ function renderProjects() {
     projects.forEach(project => {
       const projectItem = document.createElement('div');
       projectItem.classList.add('sidebar-item');
-      projectItem.innerHTML = `<i class="fas fa-folder"></i><p>${project.name}</p>`;
+      projectItem.innerHTML = `<i class="fas fa-folder"></i><p data-project-id="${project.id}">${project.name}</p>`;
       projectList.appendChild(projectItem);
     });
   }
   
-
+//Add Project field and buttons
 document.querySelector('.add-project').addEventListener('click', function() {
 
     this.style.display = 'none';
@@ -87,16 +87,15 @@ cancelButton.addEventListener('click', () => {
 
 });
 
-  
+//Task constructor 
 class Task {
-    constructor(title,text) {
-      this.title = title
-      this.text = text;
+    constructor(title, projectId = null) {
+      this.title = title;
       this.projectId = projectId;
       this.id = new Date().getTime(); // unique ID
     }
   }
-
+  
 
 
 let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
@@ -122,10 +121,40 @@ const renderTasks = (taskArray) => {
     });
   };
 
-  // Render tasks when the page loads
+//Render the tasks for the selected project
+function renderTasksForProject(projectId) {
+    const taskListElement = document.getElementById('taskList');
+    const filteredTasks = tasks.filter(task => task.projectId == projectId);
+    let taskHTML = '';
+    for (const task of filteredTasks) {
+      taskHTML += `<li>${task.title}</li>`; 
+    }
+    taskListElement.innerHTML = taskHTML;
+  }
+  
+//
+document.querySelector('.sidebar').addEventListener('click', function(event) {
+    const projectId = event.target.getAttribute('data-project-id');
+    if (projectId) {
+      renderTasksForProject(projectId);
+    }
+  });
+  
+
+
+  //Addtask decoupled from the form
+  function addTask(title, projectId = null) {
+    const newTask = new Task(title, projectId);
+    tasks.push(newTask);
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+    renderTasks(tasks);
+  } 
+
+  
+// Render tasks when the page loads
 document.addEventListener('DOMContentLoaded', () => {
     renderTasks(tasks);
-    renderProjects()
+    renderProjects();
  
     const addTaskForm = document.getElementById('addTaskForm');
 
@@ -140,13 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (taskText) {
             
-            const newTask = new Task(taskText);
-      
-            tasks.push(newTask);
-
-            localStorage.setItem('tasks', JSON.stringify(tasks));
-      
-            renderTasks(tasks);
+            addTask(taskText);
 
             taskInput.value = '';
     }
