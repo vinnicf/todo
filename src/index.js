@@ -1,6 +1,4 @@
 
-
-
 class Project {
     constructor(name) {
         this.name = name;
@@ -8,8 +6,6 @@ class Project {
     }
 
 }
-
-
 
 let projects = JSON.parse(localStorage.getItem('projects')) || [];
 
@@ -87,6 +83,7 @@ cancelButton.addEventListener('click', () => {
 
 });
 
+
 //Task constructor 
 class Task {
     constructor(title, projectId = null) {
@@ -97,82 +94,122 @@ class Task {
   }
   
 
-
 let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+
+let currentProjectId = null;
+
+function updateProjectTitle(projectName = 'Home') {
+  const projectTitleElement = document.getElementById('projectTitle');
+  if (projectTitleElement) {
+    projectTitleElement.textContent = projectName;
+  }
+}
 
 
 // Function to render tasks
-const renderTasks = (taskArray) => {
-    // Get the task list element
+const renderTasks = (projectId = null) => {
+    
     const taskListElement = document.getElementById('taskList');
-  
     taskListElement.innerHTML = '';
   
+    const filteredTasks = projectId ? tasks.filter(task => task.projectId == projectId) : tasks;
+    
     // Loop through each task in the array
-    taskArray.forEach((task) => {
+    filteredTasks.forEach((task) => {
       
       const listItemElement = document.createElement('li');
-  
-    
-      listItemElement.textContent = task.title;
-  
-      // Append the list item to the task list
+      listItemElement.textContent = task.title
       taskListElement.appendChild(listItemElement);
     });
   };
 
-//Render the tasks for the selected project
-function renderTasksForProject(projectId) {
-    const taskListElement = document.getElementById('taskList');
-    const filteredTasks = tasks.filter(task => task.projectId == projectId);
-    let taskHTML = '';
-    for (const task of filteredTasks) {
-      taskHTML += `<li>${task.title}</li>`; 
-    }
-    taskListElement.innerHTML = taskHTML;
-  }
+
+   
+  document.querySelector('.add-task-button').addEventListener('click', function() {
+    // Hide the "+ Add Task" button
+    this.style.display = 'none';
   
-//
-document.querySelector('.sidebar').addEventListener('click', function(event) {
-    const projectId = event.target.getAttribute('data-project-id');
-    if (projectId) {
-      renderTasksForProject(projectId);
-    }
+    // Create input field
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.placeholder = 'New Task';
+    input.id = 'taskInput';
+    
+    // Create 'Add' button
+    const addButton = document.createElement('button');
+    addButton.innerHTML = 'Add';
+    addButton.id = 'addButton';
+  
+    // Create 'Cancel' button
+    const cancelButton = document.createElement('button');
+    cancelButton.innerHTML = 'Cancel';
+    cancelButton.id = 'cancelButton';
+  
+    // Append the elements
+    const mainDiv = document.querySelector('.main');
+    mainDiv.appendChild(input);
+    mainDiv.appendChild(addButton);
+    mainDiv.appendChild(cancelButton);
+  
+    // Add event listener to 'Add' button
+    addButton.addEventListener('click', function() {
+      const taskTitle = input.value;
+      if (taskTitle) {
+        addTask(taskTitle, currentProjectId); // Assuming you have a variable called currentProjectId
+        renderTasks(currentProjectId);
+      }
+      // Remove the form and show the "+ Add Task" button again
+      input.remove();
+      addButton.remove();
+      cancelButton.remove();
+      document.querySelector('.add-task-button').style.display = 'block';
+    });
+  
+    // Add event listener to 'Cancel' button
+    cancelButton.addEventListener('click', function() {
+      input.remove();
+      addButton.remove();
+      cancelButton.remove();
+      document.querySelector('.add-task-button').style.display = 'block';
+    });
   });
   
 
+document.querySelector('.home-btn').addEventListener('click', function(event) {
+  currentProjectId = null;
+  renderTasks();
+  
+});
+
+document.querySelector('.sidebar').addEventListener('click', function(event) {
+    const projectId = event.target.getAttribute('data-project-id');
+    if (projectId) {
+      currentProjectId = projectId;
+      renderTasks(projectId);
+    }
+  
+  });
+  
 
   //Addtask decoupled from the form
   function addTask(title, projectId = null) {
     const newTask = new Task(title, projectId);
     tasks.push(newTask);
     localStorage.setItem('tasks', JSON.stringify(tasks));
-    renderTasks(tasks);
+    
+    if (currentProjectId) {
+        renderTasks(currentProjectId);
+    }
+    else {
+      renderTasks();
+    }
   } 
 
   
 // Render tasks when the page loads
 document.addEventListener('DOMContentLoaded', () => {
-    renderTasks(tasks);
+    renderTasks();
     renderProjects();
- 
-    const addTaskForm = document.getElementById('addTaskForm');
 
-    addTaskForm.addEventListener('submit', (event) => {
-        // Prevent the default form submission behavior
-        event.preventDefault();
-    
-        // Get the input field
-        const taskInput = document.getElementById('taskInput');
-
-        const taskText = taskInput.value;
-
-        if (taskText) {
-            
-            addTask(taskText);
-
-            taskInput.value = '';
-    }
-        });
 
 });
