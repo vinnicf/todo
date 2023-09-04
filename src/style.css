@@ -15,7 +15,7 @@ body {
 .container {
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* 100% of the viewport height */
+  min-height: 100vh; 
 }
 
 
@@ -28,7 +28,7 @@ body {
 
 
 .content {
-  flex: 1; /* takes up the remaining space */
+  flex: 1; 
   display: flex;
 }
 
@@ -37,7 +37,7 @@ body {
 
 
 .main {
-  flex: 1; /* takes up the remaining space */
+  flex: 1; 
   background-color: rgb(230, 230, 230);
   padding: 1em;
 }
@@ -98,3 +98,75 @@ body {
     background-color: red;
   }
   
+  #taskList li {
+    list-style: none;
+    padding: 10px;
+  }
+  
+  #taskList li::before {
+    content: "\f111"; /* Unicode for 'fa-circle' */
+    font-family: "Font Awesome 5 Free"; 
+    padding-right: 10px;
+  }
+
+  #taskList li:hover, .sidebar-item:hover, .add-project:hover, .add-task:hover {
+    background-color: rgba(0, 0, 0, 0.1); 
+  }
+  
+
+  .modal {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+  
+  .modal-content {
+    background-color: #fefefe;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    margin: 15% auto;
+    padding: 20px;
+    width: 40%;
+    text-align: center;
+  }
+  
+  .close {
+    color: #aaa;
+    float: right;
+    cursor: pointer;
+    font-size: 28px;
+  }
+
+  #newTaskTitle {
+    width: 100%;
+    padding: 12px 20px;  /* Make it a bit fatter */
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+  }
+
+  .button-container {
+    margin-top: 20px;
+    text-align: right; /* Align the buttons to the right */
+  }
+
+  #saveEdit, #cancelEdit {
+  background-color: #4CAF50;  /* Green background */
+  border: none;
+  border-radius: 5px;
+  color: white;  /* White text */
+  padding: 15px 32px;
+  text-align: center;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+#cancelEdit {
+  background-color: #f44336;  /* Red background */
+}
