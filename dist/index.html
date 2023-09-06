@@ -2,9 +2,10 @@
 <html>
 <head>
   <title>Todo List</title>
-    <link rel="stylesheet" href="src/style.css">
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-</head>
+
+  </head>
 <body>
   <div class="container">
     <div class="header">
@@ -58,6 +59,16 @@
 
 
           </ul>
+
+          
+          
+          <div class="add-task-section" style="display:none;">
+            <input type="text" class="add-task-input" placeholder="New task title">
+            <div class="add-task-button-container">
+              <button id="addButton" class="cancel-add-task add-task-button">Cancel</button>
+              <button id="cancelButton" class="save-add-task add-task-button">Save</button>
+            </div>
+          </div>
           <button class="add-task-button">+ Add Task</button>
       
       </div>
@@ -81,6 +92,6 @@
       <p>Footer Text</p>
     </div>
   </div>
-  <script src="src/index.js"></script>
+  <script src="main.js"></script>
 </body>
 </html>
