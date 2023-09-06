@@ -105,11 +105,11 @@ body {
 #taskList li {
   list-style: none;
   padding: 10px;
+  display: flex;
 }
 
-#taskList li::before {
+.delete-task {
   content: "\f111";
-  /* Unicode for 'fa-circle' */
   font-family: "Font Awesome 5 Free";
   padding-right: 10px;
 }
@@ -133,7 +133,7 @@ body {
 }
 
 
-#taskinput {
+#taskInput {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -142,12 +142,13 @@ body {
   border-radius: 4px;
 }
 
-.add-task-button-container {
+.add-task-container {
   margin-top: 20px;
-  text-align: right;
+  text-align: left;
+  display: flex;
 }
 
-.add-task-button {
+#add-task-button {
   background-color: #4CAF50;
   /* Green background */
   border: none;
@@ -159,6 +160,31 @@ body {
   font-size: 16px;
   margin: 4px 2px;
   cursor: pointer;
+}
+
+.add-task-section {
+
+  border: #4CAF50;
+}
+
+#addButton,
+#cancelButton {
+  background-color: #4CAF50;
+  /* Green background */
+  border: none;
+  border-radius: 5px;
+  color: white;
+  /* White text */
+  padding: 15px 32px;
+  text-align: center;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+#cancelButton {
+  background-color: #f44336;
+  /* Red background */
 }
 
 
