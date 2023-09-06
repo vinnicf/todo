@@ -1,4 +1,4 @@
-import { tasks } from './index';
+import { tasks } from './tasks';
 
 class Project {
   constructor(name) {
@@ -8,7 +8,10 @@ class Project {
 
 }
 
+
 export let projects = JSON.parse(localStorage.getItem('projects')) || [];
+
+export let currentProjectId = null;
 
 function addProject(name) {
   const newProject = new Project(name);
@@ -97,15 +100,15 @@ function deleteProject(projectId) {
   const associatedTasks = tasks.filter(task => task.projectId == projectId);
 
   if (associatedTasks.length === 0) {
-    // No tasks are associated, so it's safe to delete the project
+
     const projectIndex = projects.findIndex(project => project.id === projectId);
     if (projectIndex > -1) {
       projects.splice(projectIndex, 1);
       localStorage.setItem('projects', JSON.stringify(projects));
-      renderProjects();  // Re-render the projects
+      renderProjects();
     }
   } else {
-    // Tasks are associated, so we can't delete the project
+
     alert('Cannot delete a project that has tasks.');
   }
 }
