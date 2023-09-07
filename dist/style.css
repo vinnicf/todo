@@ -18,14 +18,39 @@ body {
   min-height: 100vh;
 }
 
-
+/* Header */
 .header {
-  background-color: #2b2b2b;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #2F5061;
   color: white;
   text-align: center;
   padding: 1em;
 }
 
+.logo {
+  font-family: 'Yusei Magic', sans-serif;
+  font-size: 20px;
+}
+
+.button-open-nav {
+  display: none;
+  width: 25px;
+  color: #f2f2f2;
+  padding: 0;
+
+  font-size: 40px;
+}
+
+.button-open-nav i {
+  margin-right: 10px;
+
+}
+
+
+
+/* Main */
 
 .content {
   flex: 1;
@@ -35,23 +60,32 @@ body {
 
 .main {
   flex: 1;
-  background-color: rgb(230, 230, 230);
-  padding: 1em;
+  background-color: #F4EAE6;
+  width: 900px;
+  padding: 20px 40px;
+  margin: 0 auto;
 }
 
 
 .footer {
-  background-color: #313131;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background-color: #2F5061;
   color: white;
   text-align: center;
   padding: 1em;
 }
 
+.footer a {
+  color: white;
+}
 
 .sidebar {
-  background-color: #636363;
-  color: white;
-  width: 300px;
+  background-color: #f3d3c7;
+  color: black;
+  width: 250px;
   padding: 1em;
 }
 
@@ -149,8 +183,7 @@ body {
 }
 
 #add-task-button {
-  background-color: #4CAF50;
-  /* Green background */
+  background-color: #4297A0;
   border: none;
   color: white;
   padding: 15px 32px;
@@ -158,6 +191,7 @@ body {
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
+  font-weight: 600;
   margin: 4px 2px;
   cursor: pointer;
 }
@@ -250,4 +284,30 @@ body {
 #cancelEdit {
   background-color: #f44336;
   /* Red background */
+}
+
+
+
+@media (max-width: 650px) {
+  .button-open-nav {
+    display: block;
+  }
+
+  .content {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    display: none;
+  }
+
+  .content {
+    width: 100%;
+  }
+
+  .right-task-panel {
+    justify-content: flex-end;
+    max-width: 33%;
+  }
 }
