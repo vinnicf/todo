@@ -20,12 +20,32 @@ function addProject(name) {
 }
 
 
+function highlightCurrentProject(projectId) {
+  // Remove 'selected' class from all list items
+  const allProjectItems = document.querySelector('.sidebar-projects');
+  allProjectItems.forEach(item => {
+    item.classList.remove('selected');
+  });
+
+  // Add 'selected' class to clicked list item
+  const projectElement = document.querySelector(`.sidebar li[data-project-id='${projectId}']`);
+  if (projectElement) {
+    projectElement.classList.add('selected');
+  }
+}
+
 function renderProjects() {
   const projectList = document.querySelector('.sidebar-projects');
   projectList.innerHTML = ''; // Clear existing projects
   projects.forEach(project => {
     const projectItem = document.createElement('div');
     projectItem.classList.add('sidebar-item');
+
+    if (project.id == currentProjectId) {
+      projectItem.classList.add('selected');
+    }
+
+    
     projectItem.innerHTML = `
       <i class="fas fa-folder"></i>
       <p data-project-id="${project.id}">${project.name}</p>

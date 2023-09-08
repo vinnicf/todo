@@ -155,6 +155,11 @@ body {
   background-color: rgba(0, 0, 0, 0.1);
 }
 
+.sidebar-projects .selected {
+  background-color: rgba(0, 0, 0, 0.1);
+  font-weight: 600;
+}
+
 
 .sidebar-item .delete-project {
   display: none;

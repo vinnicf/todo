@@ -20,6 +20,7 @@ document.querySelector('.home-btn').addEventListener('click', function (event) {
 
 });
 
+//Update the task list and Project title when project is clicked
 document.querySelector('.sidebar').addEventListener('click', function (event) {
   const projectId = event.target.getAttribute('data-project-id');
   if (projectId) {
@@ -27,6 +28,7 @@ document.querySelector('.sidebar').addEventListener('click', function (event) {
     updateProjectTitle(project.name);
     currentProjectId = projectId;
     renderTasks(projectId);
+    renderProjects();
   }
 
 });
