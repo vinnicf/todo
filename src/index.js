@@ -4,14 +4,6 @@ import { updateProjectTitle } from './dommanipulation';
 import * as Modal from './modal.js';
 
 
-//Task constructor 
-
-
-
-
-
-
-
 //Update the list and title when home is clicked
 document.querySelector('.home-btn').addEventListener('click', function (event) {
   updateProjectTitle('Home');

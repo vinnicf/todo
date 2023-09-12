@@ -36,9 +36,6 @@ const renderTasks = (projectId = null) => {
 };
 
 
-
-
-
 //Addtask decoupled from the form
 function addTask(title, projectId = null) {
     const newTask = new Task(title, projectId);
